@@ -1,5 +1,15 @@
 # ECE352
 
+## Requirements
+
+### Quartus
+
+Free version (Quartus Lite) can be installed from [here](https://fpgasoftware.intel.com/?edition=lite)
+
+### riscv-gnu-toolchain
+
+This is an open-source RISC V compiler. Download from [here](https://github.com/riscv/riscv-gnu-toolchain)
+
 ## Basic setup
 
 Here are the steps for building and running this project as far as I currently
