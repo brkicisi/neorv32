@@ -30,24 +30,24 @@ set make_assignments 1
 
 # Check that the right project is open
 if {[is_project_open]} {
-  if {[string compare $quartus(project) "de0-nano-test-setup"]} {
-    puts "Project de0-nano-test-setup is not open"
+  if {[string compare $quartus(project) "de1-soc-test-setup"]} {
+    puts "Project de1-soc-test-setup is not open"
     set make_assignments 0
   }
 } else {
   # Only open if not already open
-  if {[project_exists de0-nano-test-setup]} {
-    project_open -revision de0-nano-test-setup de0-nano-test-setup
+  if {[project_exists de1-soc-test-setup]} {
+    project_open -revision de1-soc-test-setup de1-soc-test-setup
   } else {
-    project_new -revision de0-nano-test-setup de0-nano-test-setup
+    project_new -revision de1-soc-test-setup de1-soc-test-setup
   }
   set need_to_close_project 1
 }
 
 # Make assignments
 if {$make_assignments} {
-  set_global_assignment -name FAMILY "Cyclone IV E"
-  set_global_assignment -name DEVICE EP4CE22F17C6
+  set_global_assignment -name FAMILY "Cyclone V"
+  set_global_assignment -name DEVICE 5CSEMA5F31C6
   set_global_assignment -name TOP_LEVEL_ENTITY neorv32_ProcessorTop_Test
   set_global_assignment -name ORIGINAL_QUARTUS_VERSION 20.1.0
   set_global_assignment -name PROJECT_CREATION_TIME_DATE "16:40:53  APRIL 10, 2021"
@@ -72,18 +72,40 @@ if {$make_assignments} {
   set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
   set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
 
-  set_location_assignment PIN_R8 -to clk_i
-  set_location_assignment PIN_L3 -to gpio_o[7]
-  set_location_assignment PIN_B1 -to gpio_o[6]
-  set_location_assignment PIN_F3 -to gpio_o[5]
-  set_location_assignment PIN_D1 -to gpio_o[4]
-  set_location_assignment PIN_A11 -to gpio_o[3]
-  set_location_assignment PIN_B13 -to gpio_o[2]
-  set_location_assignment PIN_A13 -to gpio_o[1]
-  set_location_assignment PIN_A15 -to gpio_o[0]
-  set_location_assignment PIN_J15 -to rstn_i
-  set_location_assignment PIN_C3 -to uart0_txd_o
-  set_location_assignment PIN_A3 -to uart0_rxd_i
+  set_location_assignment PIN_AF14 -to clk_i
+  set_location_assignment PIN_AA14 -to rstn_i
+  
+  # connect to gpio pins
+  # set_location_assignment PIN_AJ19 -to gpio_o[7]
+  # set_location_assignment PIN_AK19 -to gpio_o[6]
+  # set_location_assignment PIN_AK18 -to gpio_o[5]
+  # set_location_assignment PIN_AK16 -to gpio_o[4]
+  # set_location_assignment PIN_Y18 -to gpio_o[3]
+  # set_location_assignment PIN_AD17 -to gpio_o[2]
+  # set_location_assignment PIN_Y17 -to gpio_o[1]
+  # set_location_assignment PIN_AC18 -to gpio_o[0]
+  
+  # connect gpio to LEDs
+  set_location_assignment PIN_W20 -to gpio_o[7]
+  set_location_assignment PIN_Y19 -to gpio_o[6]
+  set_location_assignment PIN_W19 -to gpio_o[5]
+  set_location_assignment PIN_W17 -to gpio_o[4]
+  set_location_assignment PIN_V18 -to gpio_o[3]
+  set_location_assignment PIN_V17 -to gpio_o[2]
+  set_location_assignment PIN_W16 -to gpio_o[1]
+  set_location_assignment PIN_V16 -to gpio_o[0]
+
+  # Send uart to uart to usb header
+  # This causes a quartus error
+  # set_location_assignment PIN_C25 -to uart0_txd_o
+  # set_location_assignment PIN_B25 -to uart0_rxd_i
+
+  # Sending uart rx to gpio_0[8] and tx to gpio_0[9]
+  # This follows what the de0-nano example does
+  set_location_assignment PIN_AJ16 -to uart0_txd_o
+  set_location_assignment PIN_AJ17 -to uart0_rxd_i
+
+
 
   set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
 
