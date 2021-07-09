@@ -74,15 +74,31 @@ if {$make_assignments} {
   set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
 
   set_location_assignment PIN_P11 -to clk_i
-  set_location_assignment PIN_W7 -to gpio_o[7]
-  set_location_assignment PIN_V7 -to gpio_o[6]
-  set_location_assignment PIN_W8 -to gpio_o[5]
-  set_location_assignment PIN_V8 -to gpio_o[4]
-  set_location_assignment PIN_W9 -to gpio_o[3]
-  set_location_assignment PIN_V9 -to gpio_o[2]
-  set_location_assignment PIN_W10 -to gpio_o[1]
-  set_location_assignment PIN_V10 -to gpio_o[0]
-  set_location_assignment PIN_F16 -to rstn_i
+  # reset with KEY0
+  set_location_assignment PIN_B8 -to rstn_i
+  # reset using arduino reset
+  # set_location_assignment PIN_F16 -to rstn_i
+
+  # assign gpio to LED[7:0]  
+  set_location_assignment PIN_D14 -to gpio_o[7]
+  set_location_assignment PIN_E14 -to gpio_o[6]
+  set_location_assignment PIN_C13 -to gpio_o[5]
+  set_location_assignment PIN_D13 -to gpio_o[4]
+  set_location_assignment PIN_B10 -to gpio_o[3]
+  set_location_assignment PIN_A10 -to gpio_o[2]
+  set_location_assignment PIN_A9 -to gpio_o[1]
+  set_location_assignment PIN_A8 -to gpio_o[0]
+
+  # assign to gpio[7:0]
+  # set_location_assignment PIN_W7 -to gpio_o[7]
+  # set_location_assignment PIN_V7 -to gpio_o[6]
+  # set_location_assignment PIN_W8 -to gpio_o[5]
+  # set_location_assignment PIN_V8 -to gpio_o[4]
+  # set_location_assignment PIN_W9 -to gpio_o[3]
+  # set_location_assignment PIN_V9 -to gpio_o[2]
+  # set_location_assignment PIN_W10 -to gpio_o[1]
+  # set_location_assignment PIN_V10 -to gpio_o[0]
+
   # gpio[8]
   set_location_assignment PIN_W6 -to uart0_txd_o
   # gpio[9]
